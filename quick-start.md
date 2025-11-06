@@ -153,11 +153,11 @@ pytest --cov=src tests/
 
 ## Author
 [Your name]
-```
+
 
 ### Шаг 6: Создайте GitHub Actions workflow
 
-Создайте файл `.github/workflows/tests.yml`:
+Создайте файл `.github/workflows/tests.yml` / `.gitverse/workflows/tests.yml`:
 
 ```yaml
 name: Tests and Code Quality
@@ -233,7 +233,7 @@ git push
 
 ### ✓ Работоспособность + CI/CD (4 балла)
 - [ ] Код работает без ошибок (тестировано локально)
-- [ ] GitHub Actions workflow настроен в `.github/workflows/`
+- [ ] GitHub Actions workflow настроен в `.github/workflows/` или `.gitverse/workflows/`
 - [ ] Workflow запускается на push и pull_request
 - [ ] Проверка PEP 8 включена (flake8 или black)
 - [ ] Unit tests писать (как минимум 3-5 простых тестов)
@@ -263,174 +263,14 @@ git push
 - [ ] Dokumentировано в README
 
 ### Финальные проверки
-- [ ] Всё закоммичено и запушено на `main` (или указанную ветку)
-- [ ] GitHub Actions последний run имеет статус ✅ success
-- [ ] Проект доступен на https://github.com/[username]/[project]
+- [ ] Всё закоммичено и запушено на `main` / `master` (или указанную ветку)
+- [ ] В GitHub Actions или GitVerse CI/CD последний run имеет статус ✅ success
+- [ ] Проект доступен на https://github.com/[username]/[project] или https://gitverse.ru/[username]/[project]
 - [ ] README открывается и читается нормально
 - [ ] Ссылка на проект готова к передаче
 
 ---
 
-## Типичные проблемы и их решение
-
-### Проблема: GitHub Actions fails с ошибкой "ModuleNotFoundError"
-
-**Решение:**
-```bash
-# 1. Убедитесь, что все зависимости в requirements.txt
-pip freeze > requirements.txt
-
-# 2. Проверьте, что в workflow установлены зависимости:
-- name: Install dependencies
-  run: |
-    pip install -r requirements.txt
-```
-
-### Проблема: Файлы в .gitignore не игнорируются
-
-**Решение:**
-```bash
-# Удалить уже отслеживаемые файлы
-git rm --cached __pycache__ -r
-git rm --cached *.pyc
-git commit -m "Remove cached files"
-git push
-```
-
-### Проблема: CI/CD не запускается
-
-**Решение:**
-1. Проверьте `.github/workflows/` папка существует
-2. Проверьте имя workflow файла (должен оканчиваться на `.yml` или `.yaml`)
-3. Проверьте trigger (`on: push`, `on: [push, pull_request]`)
-4. Смотрите логи в Actions tab на GitHub
-
-### Проблема: Black/flake8 не работает в workflow
-
-**Решение:**
-```bash
-# Добавьте в requirements.txt
-flake8>=4.0.0
-black>=22.0.0
-
-# В workflow используйте:
-- name: Run tests
-  run: |
-    flake8 src --count --select=E9,F63,F7,F82 --show-source --statistics || true
-    pytest tests/ -v
-```
-
-### Проблема: README не отображается правильно
-
-**Решение:**
-- Используйте только `.md` (Markdown) формат
-- Проверьте синтаксис на https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
-- Code blocks оформляйте с тройными backticks: ` ``` `
-
----
-
-## Примеры креативных workflows
-
-### Пример 1: Scheduled Analysis
-
-```yaml
-name: Daily Analysis
-
-on:
-  schedule:
-    - cron: '0 2 * * *'  # Ежедневно в 2 ночи UTC
-
-jobs:
-  analyze:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-      
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-      
-      - name: Run analysis
-        run: python scripts/daily_analysis.py
-      
-      - name: Commit results
-        run: |
-          git config user.name "Analysis Bot"
-          git config user.email "bot@example.com"
-          git add reports/
-          git commit -m "Daily analysis: $(date)" || true
-          git push
-```
-
-### Пример 2: Manual Trigger (Workflow Dispatch)
-
-```yaml
-name: Generate Report
-
-on:
-  workflow_dispatch:
-    inputs:
-      date_range:
-        description: 'Date range for analysis'
-        required: true
-        default: '30'
-
-jobs:
-  generate:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-      
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-      
-      - name: Generate report
-        run: python scripts/generate_report.py --days ${{ github.event.inputs.date_range }}
-      
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: report-$(date +%Y-%m-%d)
-          path: reports/
-          retention-days: 30
-```
-
-### Пример 3: Artifact Upload
-
-```yaml
-name: Build and Upload
-
-on:
-  push:
-    branches: [main]
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-      
-      - name: Install and run
-        run: |
-          pip install -r requirements.txt
-          python main.py > output.txt
-      
-      - name: Upload output
-        uses: actions/upload-artifact@v3
-        with:
-          name: program-output
-          path: output.txt
-```
-
----
 
 ## Рекомендованные инструменты и библиотеки
 
