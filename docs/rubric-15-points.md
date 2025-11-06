@@ -75,7 +75,7 @@
 
 **4 балла** — Код полностью работоспособен с хорошей CI/CD
 - ✓ Все основные функции работают без ошибок
-- ✓ GitHub Actions workflow (`.github/workflows/`) настроен корректно
+- ✓ GitHub Actions workflow (`.github/workflows/` или `.gitverse/workflows/` ) настроен корректно
 - ✓ Запускаются проверки PEP 8 (flake8, black, pylint или аналог)
 - ✓ Присутствуют unit tests или integration tests
 - ✓ Badge в README показывает статус CI/CD (например, build passing)
@@ -171,62 +171,6 @@
 | 9-10 | Удовлетворительно |
 | 7-8 | Требуется доработка |
 | < 7 | Не зачтено |
-
----
-
-## Примеры творческого использования CI/CD:
-
-### Пример 1: Автоматическое обновление данных
-```yaml
-on:
-  schedule:
-    - cron: '0 0 * * *'  # Ежедневно в полночь
-
-jobs:
-  update-data:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Update dataset
-        run: python scripts/fetch_data.py
-      - name: Commit changes
-        run: |
-          git config user.name "Data Bot"
-          git add data/
-          git commit -m "Update data: $(date)" || true
-          git push
-```
-
-### Пример 2: Генерация отчетов при push
-```yaml
-on: [push]
-
-jobs:
-  generate-report:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Generate report
-        run: python scripts/generate_report.py
-      - name: Upload to artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: report
-          path: reports/
-```
-
-### Пример 3: Интерактивный workflow
-```yaml
-on: workflow_dispatch
-
-jobs:
-  manual-task:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Run custom analysis
-        run: python scripts/analyze.py
-```
 
 ---
 
