@@ -290,12 +290,13 @@
 
 ```
 creative-programming-assignment/
-├── rubric-15-points.md           # Основная рубрика (для студентов)
-├── llm-checker-guide.md          # Инструкции для LLM
-├── project-ideas.md              # Идеи проектов
-├── quick-start.md                # Как начать
-├── student-guide.md              # Информация для студентов
-├── evaluation-matrix.md           # Матрица оценивания
+├─ docs/
+│  ├── rubric-15-points.md           # Основная рубрика (для студентов)
+│  ├── llm-checker-guide.md          # Инструкции для LLM
+│  ├── project-ideas.md              # Идеи проектов
+│  ├── quick-start.md                # Как начать
+│  ├── student-guide.md              # Информация для студентов
+│  ├── evaluation-matrix.md           # Матрица оценивания
 └── README.md                     # Этот файл
 ```
 
