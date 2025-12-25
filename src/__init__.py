@@ -1,9 +1,9 @@
 """
-Code Quality Assessment Tool
+Инструмент для оценки качества кода
 
-A tool for automatically assessing Python code quality using various metrics.
+Инструмент для автоматической оценки качества Python кода с использованием различных метрик.
 """
 
 __version__ = "1.0.0"
-__author__ = "Student Project"
+__author__ = "Студенческий проект"
 

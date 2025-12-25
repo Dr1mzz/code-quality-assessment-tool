@@ -1,139 +1,139 @@
-# Code Quality Assessment Tool
+# Инструмент для оценки качества кода
 
 [![Tests](https://github.com/Dr1mzz/code-quality-assessment-tool/actions/workflows/tests.yml/badge.svg)](https://github.com/Dr1mzz/code-quality-assessment-tool/actions/workflows/tests.yml)
 [![Scheduled Analysis](https://github.com/Dr1mzz/code-quality-assessment-tool/actions/workflows/scheduled-analysis.yml/badge.svg)](https://github.com/Dr1mzz/code-quality-assessment-tool/actions/workflows/scheduled-analysis.yml)
 
-A comprehensive Python tool for automatically assessing code quality in Python projects. This tool analyzes code metrics including PEP8 compliance, cyclomatic complexity, docstring coverage, and generates detailed reports.
+Комплексный инструмент для автоматической оценки качества кода в Python проектах. Анализирует метрики кода, включая соответствие PEP8, цикломатическую сложность, покрытие docstrings и генерирует подробные отчеты.
 
-## 📋 Description
+## 📋 Описание
 
-The Code Quality Assessment Tool is designed to help developers, educators, and students evaluate the quality of their Python code. It provides automated analysis of various code quality metrics and generates both human-readable and machine-processable reports.
+Инструмент для оценки качества кода предназначен для помощи разработчикам, преподавателям и студентам в оценке качества их Python кода. Он предоставляет автоматический анализ различных метрик качества кода и генерирует как читаемые человеком, так и обрабатываемые машиной отчеты.
 
-### Key Features
+### Основные возможности
 
-- **Cyclomatic Complexity Analysis**: Calculates complexity metrics for functions and methods
-- **Docstring Coverage**: Measures the percentage of functions and classes with documentation
-- **Code Metrics**: Provides statistics on lines of code, functions, classes, and more
-- **Quality Scoring**: Generates an overall quality score (0-100) based on multiple factors
-- **Multiple Report Formats**: Supports both text and JSON output formats
-- **Batch Processing**: Can analyze single files or entire directories
-- **CI/CD Integration**: Includes GitHub Actions workflows for automated analysis
+- **Анализ цикломатической сложности**: Вычисляет метрики сложности для функций и методов
+- **Покрытие docstrings**: Измеряет процент функций и классов с документацией
+- **Метрики кода**: Предоставляет статистику по строкам кода, функциям, классам и другим показателям
+- **Оценка качества**: Генерирует общий показатель качества (0-100) на основе множества факторов
+- **Множественные форматы отчетов**: Поддерживает как текстовый, так и JSON формат вывода
+- **Пакетная обработка**: Может анализировать отдельные файлы или целые директории
+- **Интеграция CI/CD**: Включает GitHub Actions workflows для автоматического анализа
 
-### Use Cases
+### Области применения
 
-- **Educational Context**: Help students understand code quality metrics and improve their coding practices
-- **Code Review**: Automated preliminary code quality assessment before manual review
-- **Continuous Improvement**: Track code quality trends over time through scheduled analysis
-- **Project Health Monitoring**: Regular analysis of codebase quality in development teams
+- **Образовательный контекст**: Помогает студентам понять метрики качества кода и улучшить практики программирования
+- **Code Review**: Автоматическая предварительная оценка качества кода перед ручной проверкой
+- **Непрерывное улучшение**: Отслеживание тенденций качества кода во времени через запланированный анализ
+- **Мониторинг здоровья проекта**: Регулярный анализ качества кодовой базы в командах разработки
 
-## 🚀 Installation
+## 🚀 Установка
 
-### Prerequisites
+### Требования
 
-- Python 3.8 or higher
-- pip (Python package installer)
+- Python 3.8 или выше
+- pip (установщик пакетов Python)
 
-### Setup
+### Настройка
 
-1. **Clone the repository**:
+1. **Клонируйте репозиторий**:
 ```bash
-git clone <repo-url>
+git clone https://github.com/Dr1mzz/code-quality-assessment-tool.git
 cd code-quality-assessment-tool
 ```
 
-2. **Create a virtual environment** (recommended):
+2. **Создайте виртуальное окружение** (рекомендуется):
 ```bash
 python -m venv venv
 
-# On Windows:
+# На Windows:
 venv\Scripts\activate
 
-# On macOS/Linux:
+# На macOS/Linux:
 source venv/bin/activate
 ```
 
-3. **Install dependencies**:
+3. **Установите зависимости**:
 ```bash
 pip install -r requirements.txt
 ```
 
-## 💻 Usage
+## 💻 Использование
 
-### Basic Usage
+### Базовое использование
 
-Analyze a single Python file:
+Анализ одного Python файла:
 ```bash
 python -m src.main path/to/file.py
 ```
 
-Analyze an entire directory:
+Анализ целой директории:
 ```bash
 python -m src.main path/to/directory/
 ```
 
-### Command-Line Options
+### Параметры командной строки
 
 ```
 usage: main.py [-h] [--output OUTPUT] [--format {text,json}] [--report-dir REPORT_DIR] target
 
 positional arguments:
-  target                File or directory to analyze
+  target                Файл или директория для анализа
 
 optional arguments:
-  -h, --help            show this help message and exit
+  -h, --help            показать справку и выйти
   --output OUTPUT, -o OUTPUT
-                        Output file path for report
+                        Путь к файлу для сохранения отчета
   --format {text,json}, -f {text,json}
-                        Output format (text or json). Default: text
+                        Формат вывода (text или json). По умолчанию: text
   --report-dir REPORT_DIR
-                        Directory to save reports (default: reports)
+                        Директория для сохранения отчетов (по умолчанию: reports)
 ```
 
-### Examples
+### Примеры
 
-#### Example 1: Analyze a single file with text output
+#### Пример 1: Анализ одного файла с текстовым выводом
 
 ```bash
 python -m src.main src/analyzer.py
 ```
 
-**Output:**
+**Вывод:**
 ```
 ======================================================================
-CODE QUALITY ANALYSIS REPORT
+ОТЧЕТ ОБ АНАЛИЗЕ КАЧЕСТВА КОДА
 ======================================================================
-File: src/analyzer.py
-Generated: 2025-12-25 17:00:00
+Файл: src/analyzer.py
+Создан: 2025-12-25 17:00:00
 
 ----------------------------------------------------------------------
-SUMMARY
+СВОДКА
 ----------------------------------------------------------------------
-Lines of Code: 245
-Functions: 8
-Classes: 1
-Average Complexity: 3.2
-Docstring Coverage: 87.5%
-Quality Score: 82.3/100
+Строк кода: 245
+Функций: 8
+Классов: 1
+Средняя сложность: 3.2
+Покрытие docstrings: 87.5%
+Оценка качества: 82.3/100
 
 ----------------------------------------------------------------------
-FUNCTIONS
+ФУНКЦИИ
 ----------------------------------------------------------------------
-  analyze_file (line 25)
-    Complexity: 2, Parameters: 1, Docstring: ✓
-  analyze_directory (line 58)
-    Complexity: 4, Parameters: 1, Docstring: ✓
+  analyze_file (строка 25)
+    Сложность: 2, Параметры: 1, Docstring: [OK]
+  analyze_directory (строка 58)
+    Сложность: 4, Параметры: 1, Docstring: [OK]
   ...
 
 ======================================================================
 ```
 
-#### Example 2: Analyze a directory and save JSON report
+#### Пример 2: Анализ директории и сохранение JSON отчета
 
 ```bash
 python -m src.main src/ --format json --output analysis_report.json
 ```
 
-**Output** (excerpt from JSON):
+**Вывод** (фрагмент JSON):
 ```json
 {
   "timestamp": "2025-12-25T17:00:00",
@@ -150,201 +150,197 @@ python -m src.main src/ --format json --output analysis_report.json
 }
 ```
 
-#### Example 3: Analyze sample code
+#### Пример 3: Анализ примера кода
 
 ```bash
 python -m src.main data/sample.py --format text
 ```
 
-This will analyze the sample Python file included in the repository and display the results.
+Это проанализирует пример Python файла, включенного в репозиторий, и отобразит результаты.
 
-### Programmatic Usage
+### Программное использование
 
-You can also use the tool programmatically in your Python code:
+Вы также можете использовать инструмент программно в своем Python коде:
 
 ```python
 from src.analyzer import CodeAnalyzer
 from src.reporter import ReportGenerator
 
-# Initialize analyzer
+# Инициализация анализатора
 analyzer = CodeAnalyzer()
 
-# Analyze a file
+# Анализ файла
 results = analyzer.analyze_file("path/to/file.py")
 
-# Generate report
+# Генерация отчета
 reporter = ReportGenerator()
 text_report = reporter.generate_text_report(results)
 print(text_report)
 
-# Or generate JSON
+# Или генерация JSON
 json_report = reporter.generate_json_report(results, output_file="report.json")
 ```
 
-## 📁 Project Structure
+## 📁 Структура проекта
 
 ```
 .
-├── src/                    # Source code
+├── src/                    # Исходный код
 │   ├── __init__.py
-│   ├── analyzer.py         # Main analysis logic
-│   ├── reporter.py         # Report generation
-│   └── main.py             # CLI entry point
-├── tests/                  # Unit tests
+│   ├── analyzer.py         # Основная логика анализа
+│   ├── reporter.py         # Генерация отчетов
+│   └── main.py             # Точка входа CLI
+├── tests/                  # Unit тесты
 │   ├── __init__.py
-│   ├── test_analyzer.py    # Tests for analyzer
-│   ├── test_reporter.py    # Tests for reporter
-│   └── test_main.py        # Integration tests
-├── data/                   # Sample data files
-│   └── sample.py           # Sample Python file for testing
-├── docs/                   # Documentation
-├── reports/                # Generated reports (gitignored)
+│   ├── test_analyzer.py    # Тесты для анализатора
+│   ├── test_reporter.py    # Тесты для репортера
+│   └── test_main.py        # Интеграционные тесты
+├── data/                   # Примеры данных
+│   └── sample.py           # Пример Python файла для тестирования
+├── reports/                # Сгенерированные отчеты (gitignored)
 ├── .github/
 │   └── workflows/          # GitHub Actions workflows
-│       ├── tests.yml       # Standard CI/CD workflow
-│       └── scheduled-analysis.yml  # Scheduled analysis workflow
+│       ├── tests.yml       # Стандартный CI/CD workflow
+│       └── scheduled-analysis.yml  # Запланированный анализ workflow
 ├── .gitignore
 ├── requirements.txt
 └── README.md
 ```
 
-## 🔧 Requirements
+## 🔧 Требования
 
-### Python Version
-- Python 3.8 or higher
+### Версия Python
+- Python 3.8 или выше
 
-### Dependencies
+### Зависимости
 
-Core dependencies are listed in `requirements.txt`:
+Основные зависимости перечислены в `requirements.txt`:
 
-- **numpy** >= 1.20.0 - Numerical computing
-- **pandas** >= 1.3.0 - Data manipulation
-- **flake8** >= 4.0.0 - Code linting
-- **black** >= 22.0.0 - Code formatting
-- **pytest** >= 7.0.0 - Testing framework
-- **pytest-cov** >= 3.0.0 - Test coverage
+- **flake8** >= 4.0.0 - Проверка стиля кода
+- **black** >= 22.0.0 - Форматирование кода
+- **pytest** >= 7.0.0 - Фреймворк для тестирования
+- **pytest-cov** >= 3.0.0 - Покрытие тестами
 
-For the complete list, see `requirements.txt`.
+Для полного списка см. `requirements.txt`.
 
-## 🧪 Testing
+## 🧪 Тестирование
 
-Run all tests:
+Запуск всех тестов:
 ```bash
 pytest
 ```
 
-Run tests with coverage report:
+Запуск тестов с отчетом о покрытии:
 ```bash
 pytest --cov=src --cov-report=html
 ```
 
-Run specific test file:
+Запуск конкретного файла с тестами:
 ```bash
 pytest tests/test_analyzer.py -v
 ```
 
-Run tests with verbose output:
+Запуск тестов с подробным выводом:
 ```bash
 pytest -v
 ```
 
 ## 🔄 CI/CD Workflows
 
-This project includes two GitHub Actions workflows:
+Проект включает два GitHub Actions workflow:
 
-### 1. Tests and Code Quality (`tests.yml`)
+### 1. Тесты и качество кода (`tests.yml`)
 
-This workflow runs on every push and pull request:
+Этот workflow запускается при каждом push и pull request:
 
-- Runs tests on Python 3.8, 3.9, 3.10, and 3.11
-- Performs code linting with flake8
-- Checks code formatting with black
-- Generates test coverage reports
-- Uploads coverage to Codecov
+- Запускает тесты на Python 3.8, 3.9, 3.10 и 3.11
+- Выполняет проверку стиля кода с flake8
+- Проверяет форматирование кода с black
+- Генерирует отчеты о покрытии тестами
+- Загружает покрытие в Codecov
 
-**Status Badge:** 
+**Бейдж статуса:** 
 ```
 ![Tests](https://github.com/Dr1mzz/code-quality-assessment-tool/actions/workflows/tests.yml/badge.svg)
 ```
 
-### 2. Scheduled Code Analysis (`scheduled-analysis.yml`)
+### 2. Запланированный анализ кода (`scheduled-analysis.yml`)
 
-This creative workflow demonstrates advanced CI/CD usage:
+Этот креативный workflow демонстрирует продвинутое использование CI/CD:
 
-**Features:**
-- **Scheduled execution**: Runs daily at 2 AM UTC
-- **Manual trigger**: Can be triggered manually via `workflow_dispatch` with custom parameters
-- **Artifact upload**: Uploads analysis reports as downloadable artifacts
-- **Auto-commit**: Automatically commits reports to a `reports` branch on scheduled runs
-- **Summary generation**: Creates GitHub Actions summary with report preview
+**Возможности:**
+- **Запланированное выполнение**: Запускается ежедневно в 2:00 UTC
+- **Ручной запуск**: Может быть запущен вручную через `workflow_dispatch` с пользовательскими параметрами
+- **Загрузка артефактов**: Загружает отчеты анализа как загружаемые артефакты
+- **Автокоммит**: Автоматически коммитит отчеты в ветку `reports` при запланированных запусках
+- **Генерация сводки**: Создает сводку GitHub Actions с предпросмотром отчета
 
-**Manual Trigger:**
-1. Go to Actions → Scheduled Code Analysis
-2. Click "Run workflow"
-3. Optionally specify:
-   - Target directory (default: `src`)
-   - Report format (text or json)
+**Ручной запуск:**
+1. Перейдите в Actions → Scheduled Code Analysis
+2. Нажмите "Run workflow"
+3. При необходимости укажите:
+   - Целевую директорию (по умолчанию: `src`)
+   - Формат отчета (text или json)
 
-**Use Case:** This workflow automatically monitors code quality over time, making it easy to track improvements or regressions in code quality metrics.
+**Область применения:** Этот workflow автоматически отслеживает качество кода во времени, что позволяет легко отслеживать улучшения или регрессии в метриках качества кода.
 
-## 📊 Code Quality Metrics Explained
+## 📊 Объяснение метрик качества кода
 
-### Cyclomatic Complexity
+### Цикломатическая сложность
 
-Measures the complexity of functions by counting decision points (if, while, for, etc.). Lower values indicate simpler, more maintainable code.
+Измеряет сложность функций, подсчитывая точки принятия решений (if, while, for и т.д.). Более низкие значения указывают на более простой и поддерживаемый код.
 
-- **1-5**: Simple
-- **6-10**: Moderate
-- **11-20**: Complex
-- **21+**: Very complex
+- **1-5**: Простой
+- **6-10**: Умеренный
+- **11-20**: Сложный
+- **21+**: Очень сложный
 
-### Docstring Coverage
+### Покрытие docstrings
 
-Percentage of functions and classes that have docstrings. Higher coverage indicates better documentation.
+Процент функций и классов, которые имеют docstrings. Более высокое покрытие указывает на лучшую документацию.
 
-### Quality Score
+### Оценка качества
 
-An overall score (0-100) calculated from:
-- Complexity (lower is better)
-- Docstring coverage (higher is better)
-- Function parameter count (fewer is better)
+Общий балл (0-100), рассчитанный на основе:
+- Сложности (чем ниже, тем лучше)
+- Покрытия docstrings (чем выше, тем лучше)
+- Количества параметров функции (чем меньше, тем лучше)
 
-## 🤝 Contributing
+## 🤝 Вклад в проект
 
-Contributions are welcome! Please follow these steps:
+Вклад приветствуется! Пожалуйста, следуйте этим шагам:
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Make your changes
-4. Add tests for new functionality
-5. Ensure all tests pass (`pytest`)
-6. Ensure code follows style guidelines (`flake8`, `black`)
-7. Commit your changes (`git commit -m 'Add amazing feature'`)
-8. Push to the branch (`git push origin feature/amazing-feature`)
-9. Open a Pull Request
+1. Форкните репозиторий
+2. Создайте ветку для функции (`git checkout -b feature/amazing-feature`)
+3. Внесите свои изменения
+4. Добавьте тесты для новой функциональности
+5. Убедитесь, что все тесты проходят (`pytest`)
+6. Убедитесь, что код соответствует стилевым рекомендациям (`flake8`, `black`)
+7. Закоммитьте изменения (`git commit -m 'Add amazing feature'`)
+8. Запушьте в ветку (`git push origin feature/amazing-feature`)
+9. Откройте Pull Request
 
-## 📝 License
+## 📝 Лицензия
 
-This project is created as an educational assignment. Feel free to use and modify as needed.
+Этот проект создан в рамках учебного задания. Используйте и модифицируйте по необходимости.
 
-## 👤 Author
+## 👤 Автор
 
-Student Project - Code Quality Assessment Tool
+Студенческий проект - Инструмент для оценки качества кода
 
-## 🙏 Acknowledgments
+## 🙏 Благодарности
 
-- Built as part of a programming assignment focusing on code quality, CI/CD, and best practices
-- Inspired by tools like pylint, flake8, and radon
-- Uses Python's AST module for code analysis
+- Создан в рамках учебного задания, фокусирующегося на качестве кода, CI/CD и best practices
+- Вдохновлен такими инструментами как pylint, flake8 и radon
+- Использует модуль AST Python для анализа кода
 
-## 📚 Additional Resources
+## 📚 Дополнительные ресурсы
 
-- [Python AST Documentation](https://docs.python.org/3/library/ast.html)
-- [PEP 8 Style Guide](https://pep8.org/)
-- [GitHub Actions Documentation](https://docs.github.com/en/actions)
-- [Pytest Documentation](https://docs.pytest.org/)
+- [Документация Python AST](https://docs.python.org/3/library/ast.html)
+- [Руководство по стилю PEP 8](https://pep8.org/)
+- [Документация GitHub Actions](https://docs.github.com/en/actions)
+- [Документация Pytest](https://docs.pytest.org/)
 
 ---
 
-**Note:** Badge URLs уже настроены для репозитория `code-quality-assessment-tool`. Если вы используете другое название, обновите URLs в строках 3-4.
-
+**Примечание:** Badge URLs уже настроены для репозитория `code-quality-assessment-tool`. Если вы используете другое название, обновите URLs в строках 3-4.
