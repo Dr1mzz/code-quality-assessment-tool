@@ -1,0 +1,101 @@
+name: Scheduled Code Analysis
+
+on:
+  schedule:
+    # Run daily at 2 AM UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:  # Allow manual triggering
+    inputs:
+      target_directory:
+        description: 'Directory to analyze (default: src)'
+        required: false
+        default: 'src'
+      report_format:
+        description: 'Report format (text or json)'
+        required: false
+        default: 'text'
+        type: choice
+        options:
+        - text
+        - json
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run code analysis
+      id: analysis
+      env:
+        TARGET_DIR: ${{ github.event.inputs.target_directory || 'src' }}
+        FORMAT: ${{ github.event.inputs.report_format || 'text' }}
+      run: |
+        echo "Analyzing directory: $TARGET_DIR"
+        python -m src.main "$TARGET_DIR" --format "$FORMAT" --report-dir reports/
+        
+        # Generate timestamp for report filename
+        TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+        REPORT_FILE="code_quality_report_${TIMESTAMP}.${FORMAT}"
+        
+        # Move report to predictable location
+        if [ "$FORMAT" = "json" ]; then
+          mv reports/*.json "reports/$REPORT_FILE" 2>/dev/null || true
+        else
+          mv reports/*.txt "reports/$REPORT_FILE" 2>/dev/null || true
+        fi
+        
+        echo "report_file=$REPORT_FILE" >> $GITHUB_OUTPUT
+        echo "report_format=$FORMAT" >> $GITHUB_OUTPUT
+
+    - name: Upload analysis report as artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: code-quality-report-${{ github.run_number }}
+        path: reports/
+        retention-days: 30
+
+    - name: Generate summary
+      env:
+        TARGET_DIR: ${{ github.event.inputs.target_directory || 'src' }}
+        FORMAT: ${{ github.event.inputs.report_format || 'text' }}
+      run: |
+        echo "## Code Quality Analysis Report" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**Analysis Date:** $(date)" >> $GITHUB_STEP_SUMMARY
+        echo "**Target Directory:** $TARGET_DIR" >> $GITHUB_STEP_SUMMARY
+        echo "**Report Format:** $FORMAT" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "📊 Report has been generated and uploaded as an artifact." >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        if [ -f reports/*.txt ]; then
+          echo "### Report Preview" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          head -30 reports/*.txt >> $GITHUB_STEP_SUMMARY || true
+          echo '```' >> $GITHUB_STEP_SUMMARY
+        fi
+
+    - name: Commit report to repository
+      if: github.event_name == 'schedule'
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        
+        # Create reports branch if it doesn't exist
+        git checkout -b reports 2>/dev/null || git checkout reports || true
+        
+        git add reports/
+        git commit -m "Update code quality report [skip ci]" || echo "No changes to commit"
+        git push origin reports || echo "Nothing to push"
+
