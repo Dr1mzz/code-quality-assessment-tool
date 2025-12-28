@@ -95,7 +95,14 @@ jobs:
         # Create reports branch if it doesn't exist
         git checkout -b reports 2>/dev/null || git checkout reports || true
         
-        git add reports/
-        git commit -m "Update code quality report [skip ci]" || echo "No changes to commit"
-        git push origin reports || echo "Nothing to push"
+        # Force add reports directory even if it's in .gitignore
+        git add -f reports/ || echo "No reports to add"
+        
+        # Only commit if there are changes
+        if git diff --staged --quiet; then
+          echo "No changes to commit"
+        else
+          git commit -m "Update code quality report [skip ci]"
+          git push origin reports || echo "Failed to push"
+        fi
 
